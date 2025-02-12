@@ -30,7 +30,8 @@ public class TrackManager : MonoBehaviour
     //초기 트랙 생성( 한번만 실행)
     void SpawnInitialTrack()
     {
-        Vector3 position = Vector3.zero;
+        // 초기값: 카메라의 z좌표
+        Vector3 position = new Vector3(0f, 0f, camTransform.position.z);
         for(int i = 0 ; i<trackCount-1; i++)
         {
             //이전 ExitPoint에 다음 EntryPoint 접합
