@@ -5,6 +5,7 @@ public class TrackManager : MonoBehaviour
 {
 
     public Track trackPrefab;
+    public PlayerControl playerPrefab;
 
     [Range(0f, 50f)] public float scrollSpeed = 10f;
     [Range(1, 100)] public int trackCount = 3;
@@ -13,6 +14,7 @@ public class TrackManager : MonoBehaviour
     
     private List<Track> trackList = new List<Track>(); //생성한 트랙들 보관
     private Transform camTransform;
+    [HideInInspector] public List<Transform> laneList; // 현재 트랙의 라인 정보를 전달
     
     void Start()
     {
@@ -20,6 +22,7 @@ public class TrackManager : MonoBehaviour
         camTransform = Camera.main.transform;
         
         SpawnInitialTrack();
+        SpawnPlayer();
     }
     
     void Update()
@@ -41,6 +44,18 @@ public class TrackManager : MonoBehaviour
         
     }
 
+    Track SpawnNextTrack(Vector3 position, string trackname)
+    {
+        //첫번째 ExitPoint에 두번째 EntryPoint 접합
+        Track Next = Instantiate(trackPrefab, position, Quaternion.identity, transform);
+        Next.name = trackname;
+        Next.trackmgr = this;
+        laneList = Next.laneList;
+        trackList.Add(Next);
+
+        return Next;
+    }
+
     //트랙을 재배치
     void RepositionTrack()
     {
@@ -59,15 +74,10 @@ public class TrackManager : MonoBehaviour
         }    
     }
 
-    Track SpawnNextTrack(Vector3 position, string trackname)
+    void SpawnPlayer()
     {
-        //첫번째 ExitPoint에 두번째 EntryPoint 접합
-        Track Next = Instantiate(trackPrefab, position, Quaternion.identity, transform);
-        Next.name = trackname;
-        Next.trackmgr = this;
-        trackList.Add(Next);
-
-        return Next;
+        PlayerControl player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        player.trackMgr = this;
     }
 
 }
