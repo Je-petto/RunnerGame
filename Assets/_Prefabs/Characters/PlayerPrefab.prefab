@@ -454,42 +454,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18e55a65d312fb4f88bd0a56d333e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  jumpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: -0.08715856
-      outSlope: -0.08715856
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.0034316
-      value: -0.09461987
-      inSlope: -2.1743171
-      outSlope: -2.1743171
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  jumpDuration: 0.35
+  moveDuration: 0.3
+  moveEase: 27
+  jumpDuration: 0.6
   jumpHeight: 2
+  jumpEase: 32
   trackMgr: {fileID: 0}
   currentlane: 1
 --- !u!33 &8684543553295938478
