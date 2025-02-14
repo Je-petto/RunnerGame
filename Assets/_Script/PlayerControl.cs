@@ -1,41 +1,54 @@
 using Unity.Mathematics;
 using UnityEngine;
 using DG.Tweening;
+using Deform;
 
 public class PlayerControl : MonoBehaviour
 {
     // 속성: Inspector에 노출
-    [SerializeField] float moveDuration = 0.25f; //이동에 걸리는 시간
+    [SerializeField] Transform pivot;
+    [SerializeField] SquashAndStretchDeformer deformLeft, deformRight, deformJumpUp, deformJumpDown;
+
+    [SerializeField] float moveDuration = 0.5f; //이동에 걸리는 시간
     //[SerializeField] AnimationCurve jumpCurve; //점프 그래프 모양
     [SerializeField] Ease moveEase;
-    [SerializeField] float jumpDuration = 0.2f; //점프 지속 시간
+    [SerializeField] float jumpDuration = 0.5f; //점프 지속 시간
     [SerializeField] float jumpHeight = 3f; //점프 높이
     [SerializeField] Ease jumpEase;
     
     // Inspector에 노출 안됨 - but 다른 클래스에 공개는 함
     [HideInInspector] public TrackManager trackMgr;
-    [HideInInspector] public int currentlane = 1;
-
+    
     // 내부 사용: Inspector에 노출 안됨
+    private int currentlane = 1;
     private Vector3 targetpos;
     private bool isMoving = false;
 
     void Update()
     {
-        if (Input.GetButtonDown("Left") && isMoving == false)
-            HandlePlayer(-1);
-        else if (Input.GetButtonDown("Right") && isMoving == false)
-            HandlePlayer(1);
-        else if (Input.GetButtonDown("Jump") && isMoving == false)
-            HandleJump();
-            
+        if (pivot == null)
+            return;
         
-
+        if (Input.GetButtonDown("Left") && currentlane > 0)
+            HandleDirection(-1);
+        else if (Input.GetButtonDown("Right") && currentlane < trackMgr.laneList.Count-1)
+            HandleDirection(1);
+        else if (Input.GetButtonDown("Jump"))
+            HandleJump();
     }
 
     //direction -1이면 왼쪽, +1이면 오른쪽
-    void HandlePlayer(int direction)
+    private Sequence _seqMove;
+    void HandleDirection(int direction)
     {
+        var squash = direction switch { -1 => deformLeft, 1 => deformRight, _ => null };
+
+        if ( _seqMove != null )
+        {
+            _seqMove.Kill(true);
+            squash.Factor = 0f;
+        }
+        
         isMoving = true;
         
         currentlane += direction;
@@ -43,20 +56,23 @@ public class PlayerControl : MonoBehaviour
 
         Transform l = trackMgr.laneList[currentlane];
 
-        targetpos = new Vector3(l.position.x, transform.position.y, transform.position.z);
+        targetpos = new Vector3(l.position.x, pivot.position.y, pivot.position.z);
 
-        transform.DOMove(targetpos, moveDuration)
-                .OnComplete( ()=> isMoving = false)
-                .SetEase(moveEase);
+        _seqMove = DOTween.Sequence().OnComplete(()=> squash.Factor = 0);
+        _seqMove.Append(pivot.DOMove(targetpos, moveDuration));
+        _seqMove.Join(DOVirtual.Float(0f, 1f, moveDuration/2f, (v)=> squash.Factor = v));
+        _seqMove.Join(DOVirtual.Float(1f, 0f, moveDuration/2f, (v)=> squash.Factor = v));
+
     }
 
     void HandleJump()
     {
-        isMoving = true;
-
-        transform.DOLocalJump(targetpos, jumpHeight, 1, jumpDuration)
-                .OnComplete( ()=> isMoving = false)
-                .SetEase(jumpEase);
+        var seqjump = DOTween.Sequence().OnComplete( ()=> {deformJumpUp.Factor = 0; deformJumpDown.Factor = 0; });
+        seqjump.Append(pivot.DOLocalJump(targetpos, jumpHeight, 1, jumpDuration).SetEase(jumpEase));
+        seqjump.Join(DOVirtual.Float(0f, 1f, jumpDuration/4f, (v)=> deformJumpUp.Factor = v));
+        seqjump.Append(DOVirtual.Float(1f, 0f, jumpDuration/4f, (v)=> deformJumpUp.Factor = v));
+        seqjump.Join(DOVirtual.Float(0f, 1f, jumpDuration/2f, (v)=> deformJumpDown.Factor = v));
+        seqjump.Append(DOVirtual.Float(1f, 0f, jumpDuration/2f, (v)=> deformJumpDown.Factor = v));
     }
     
     // void Update()
@@ -103,4 +119,23 @@ public class PlayerControl : MonoBehaviour
     // {
     //     jumpStartTime = Time.time;
     // }
+
+    
+        
+        // if (direction == -1) //left 이동
+        // {
+        //     //deformLeft.Factor = 1;
+        //     DOVirtual.Float(0f, 1f, moveDuration/2f, (v)=> deformLeft.Factor = v)
+        //             .OnComplete(()=> DOVirtual.Float(1f, 0f, moveDuration/2f, (v)=> deformLeft.Factor = v));
+        // }
+        // else if (direction == 1) //right 이동
+        // {
+        //     //deformRight.Factor = -1;
+        //     DOVirtual.Float(0f, 1f, moveDuration/2f, (v)=> deformLeft.Factor = v)
+        //             .OnComplete(()=> DOVirtual.Float(1f, 0f, moveDuration/2f, (v)=> deformLeft.Factor = v));
+        // }
+    
+        // pivot.DOLocalJump(targetpos, jumpHeight, 1, jumpDuration)
+        //         .OnComplete( ()=> isMoving = false)
+        //         .SetEase(jumpEase);
 }
