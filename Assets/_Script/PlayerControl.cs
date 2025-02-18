@@ -3,11 +3,15 @@ using UnityEngine;
 using DG.Tweening;
 using Deform;
 
+public enum PlayerState { Idle = 0, Move, Jump, Slide }
+
 public class PlayerControl : MonoBehaviour
 {
     [Space(20)]
     // 속성 : 인스펙터 노출
     [SerializeField] Transform pivot;
+    [SerializeField] Collider colNormal, colSlide; // 0: 기본상태 , 1: 슬라이드
+    
     [SerializeField] SquashAndStretchDeformer deformLeft, deformRight, deformJumpUp, deformJumpDown, deformSlide;
 
 
@@ -28,16 +32,23 @@ public class PlayerControl : MonoBehaviour
     // 다른 클래스에 공개는 하지만 인스펙터 노출 안함
     [HideInInspector] public TrackManager trackMgr;
 
+    public PlayerState state;
+
 
     // 내부 사용 : 인스펙터 노출 안함
     private int currentLane = 1;
     private Vector3 targetpos;
 
-    private bool isMoving , isJumping;
+    void Start()
+    {
+        SwitchCollider(true);
+    }
+
+    
 
     void Update()
     {
-        if (pivot == null)
+        if (pivot == null || GameManager.IsPlaying == false)
             return;
 
         if (Input.GetButtonDown("Left") && currentLane > 0)
@@ -54,21 +65,31 @@ public class PlayerControl : MonoBehaviour
     }
 
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other)        
+        {
+            GameManager.IsPlaying = false;
+        }
+    }
+
+
 
     private Sequence _seqMove;
     // direction -1 이면 왼쪽 , +1 이면 오른쪽
     void HandleDirection(int direction)
     {
-        if ( isJumping == true ) return;
+        if ( state == PlayerState.Jump || state == PlayerState.Slide ) return;
 
-        isMoving = true;
+        state = PlayerState.Move;
 
         var squash = direction switch { -1 => deformLeft, 1 => deformRight, _ => null };
 
         if (_seqMove != null)
+        {
             _seqMove.Kill(true);
-
-
+            state = PlayerState.Move;
+        }
 
         currentLane += direction;
         currentLane = math.clamp(currentLane, 0, trackMgr.laneList.Count-1);
@@ -77,7 +98,7 @@ public class PlayerControl : MonoBehaviour
 
         targetpos = new Vector3(l.position.x, pivot.position.y , pivot.position.z );
 
-        _seqMove = DOTween.Sequence().OnComplete(()=> {squash.Factor = 0; isMoving = false; });
+        _seqMove = DOTween.Sequence().OnComplete(()=> {squash.Factor = 0; state = PlayerState.Idle; });
         _seqMove.Append(pivot.DOMove(targetpos, moveDuration));
         _seqMove.Join(DOVirtual.Float(0f, 1f, moveDuration/2f, (v)=> squash.Factor = v ));
         _seqMove.Append(DOVirtual.Float(1f, 0f, moveDuration/2f, (v)=> squash.Factor = v ));
@@ -85,18 +106,17 @@ public class PlayerControl : MonoBehaviour
 
     void HandleJump()
     {
-        if ( isMoving == true || isJumping == true ) return;
+        if ( state != PlayerState.Idle ) return;
 
-        isJumping = true;
+        state = PlayerState.Jump;
 
         pivot.DOLocalJump(targetpos, jumpHeight, 1, jumpDuration)
-                .OnComplete( ()=> isMoving = false )
                 .SetEase(jumpEase);
 
         deformJumpUp.Factor = 0f;
         deformJumpDown.Factor = 0f;  
 
-        Sequence seq = DOTween.Sequence().OnComplete( ()=> isJumping = false );
+        Sequence seq = DOTween.Sequence().OnComplete( ()=> state = PlayerState.Idle );
         seq.Append(DOVirtual.Float( 0f, 1f, jumpDuration * jumpIntervals[0], v => deformJumpUp.Factor = v ));
         seq.Append(DOVirtual.Float( 1f, 0f, jumpDuration * jumpIntervals[1], v => deformJumpUp.Factor = v ));        
         seq.Join(DOVirtual.Float( 0f, 1f, jumpDuration * jumpIntervals[2], v => deformJumpDown.Factor = v ));
@@ -105,14 +125,26 @@ public class PlayerControl : MonoBehaviour
 
     void HandleSlide()
     {
-        if ( isMoving == true || isJumping == true ) return;
+        if ( state != PlayerState.Idle ) return;
 
-        isJumping = true;
+        state = PlayerState.Slide;
+        SwitchCollider(false);
 
-        Sequence seq = DOTween.Sequence().OnComplete( ()=> isJumping = false );
+        Sequence seq = DOTween.Sequence().OnComplete( ()=> 
+        {
+            state = PlayerState.Idle;
+            SwitchCollider(true);
+        });
         seq.Append(DOVirtual.Float( 0f, -1f, slideDuration * 0.25f , v => deformSlide.Factor = v ));
         seq.AppendInterval(slideDuration * 0.25f);
         seq.Append(DOVirtual.Float( -1f, 0f, slideDuration * 0.5f, v => deformSlide.Factor = v ));        
+    }
+
+    // b : TRUE -> 기본모드 , FALSE -> 슬라이드
+    void SwitchCollider(bool b)
+    {
+        colNormal.gameObject.SetActive(b);
+        colSlide.gameObject.SetActive(!b);
     }
 
 }
