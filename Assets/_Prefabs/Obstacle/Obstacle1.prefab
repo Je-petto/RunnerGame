@@ -47,10 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshPrefabs:
   - {fileID: 1429765118254396, guid: bda52814ff1f6d841abf0e5e0cf78679, type: 3}
-  - {fileID: 1812236360857430, guid: 3f3fd69bde69c6142a05934cda811c4e, type: 3}
+  - {fileID: 1253887386808806, guid: 11b481c2e6ea1954cb487ff02b31ac99, type: 3}
   - {fileID: 1628179069239932, guid: cab8bc711234b184f978aaa24d1d3ad6, type: 3}
+  - {fileID: 1812236360857430, guid: 3f3fd69bde69c6142a05934cda811c4e, type: 3}
   - {fileID: 1946667186305054, guid: 686e4a39cf9bb8449b80bc941d361d2d, type: 3}
   - {fileID: 1226418073001554, guid: f6359832f27f8f5429c3a803ed6f4ea1, type: 3}
+  - {fileID: 1841958556670990, guid: 451960347f1b7db449ca38ee0b760404, type: 3}
   meshRoot: {fileID: 8571480041724904769}
 --- !u!1 &7426818696243984201
 GameObject:

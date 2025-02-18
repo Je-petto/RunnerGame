@@ -1,8 +1,17 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+// enum : Enumerator
+public enum ObstacleType { Single, Top, Bottom, _MAX_}
 
 public class ObstacleManager : MonoBehaviour
 {
+    [SerializeField] List<Obstacle> obstacleSingle;
+    [SerializeField] List<Obstacle> obstacleTop;
+    [SerializeField] List<Obstacle> obstacleBottom;
+
+    [Space(20)]
     [SerializeField] Obstacle obstaclePrefab;
     [SerializeField] Transform spawnPoint;
 
@@ -49,7 +58,10 @@ public class ObstacleManager : MonoBehaviour
             Debug.LogWarning("Z 위치에 해당하는 트랙이 없음");
             return;
         }
-        Obstacle o = Instantiate(obstaclePrefab, pos, Quaternion.identity, t.ObstacleRoot );
+
+        var obstacle = RandomTypeSpawn();
+
+        Instantiate(obstacle, pos, Quaternion.identity, t.ObstacleRoot );
     }
 
 
@@ -66,4 +78,25 @@ public class ObstacleManager : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
         }
     }
+
+    Obstacle RandomTypeSpawn()
+    {
+        // 랜덤: ObstacleType
+        int rndType = Random.Range((int)ObstacleType.Single, (int)ObstacleType._MAX_);
+
+        List<Obstacle> obstacles = rndType switch
+        {
+            (int)ObstacleType.Single => obstacleSingle,
+            (int)ObstacleType.Top => obstacleTop,
+            (int)ObstacleType.Bottom => obstacleBottom,
+            _=> null
+        };
+
+        // 랜덤: varient
+        Obstacle prefab = obstacles[Random.Range(0, obstacles.Count)];
+
+        return prefab;
+    }
+
+
 }

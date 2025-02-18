@@ -509,7 +509,7 @@ MonoBehaviour:
   deformSlide: {fileID: 5797863257198775698}
   moveDuration: 0.2
   moveEase: 32
-  jumpDuration: 0.4
+  jumpDuration: 0.6
   jumpHeight: 3
   jumpEase: 32
   jumpIntervals:

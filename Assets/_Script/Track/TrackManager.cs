@@ -51,7 +51,9 @@ public class TrackManager : MonoBehaviour
             return;
 
         RepositionTrack();
-        BendTrack();        
+        BendTrack();
+
+        GameManager.mileage += scrollSpeed * Time.smoothDeltaTime;      
     }
 
 
