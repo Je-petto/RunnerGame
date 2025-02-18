@@ -11,8 +11,8 @@ public class TrackManager : MonoBehaviour
 
     [Space(20)]
     [Range(0f, 50f)] public float scrollSpeed = 10f;    
-    [Range(1, 100)] public int trackCount = 3;   
-
+    [Range(1, 10)] public int trackCount = 3;
+    [Range(1, 5)] public int countdown;
 
     [Space(20)]
     [SerializeField] Material CurvedMaterial;
@@ -34,22 +34,15 @@ public class TrackManager : MonoBehaviour
     // 캐시 데이터
     private int _curveAmount = Shader.PropertyToID("_CurveAmount");
 
-    IEnumerator Start()
+    void Start()
     {
         // 메인 카메라 Transform을 미리 받아온다.
         camTransform = Camera.main.transform;
 
         SpawnInitialTrack();
         SpawnPlayer();
+        StartCoroutine(CountdownTrack());
 
-
-        Debug.Log("3");
-        yield return new WaitForSeconds(1f);
-        Debug.Log("2");
-        yield return new WaitForSeconds(1f);
-        Debug.Log("1");
-        yield return new WaitForSeconds(1f);
-        GameManager.IsPlaying = true;
     }
 
     void Update()
@@ -74,6 +67,8 @@ public class TrackManager : MonoBehaviour
             Track next = SpawnNextTrack(position, $"Track_{i}");
             position = next.ExitPoint.position;
         }
+
+        BendTrack();
     }
 
     Track SpawnNextTrack(Vector3 position, string trackname)
@@ -111,6 +106,7 @@ public class TrackManager : MonoBehaviour
         }
     }
 
+    float elapsedTime;
     void BendTrack()
     {
         if (scrollSpeed <= 0f) return;
@@ -120,10 +116,12 @@ public class TrackManager : MonoBehaviour
         // 0 ->  *2 -1   -1
         // 1 ->  *2 -1    1
         // 0.5 -> *2 -1   0
+
+        elapsedTime += Time.deltaTime;
         
-        float rndX = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyX) *2f - 1f;
+        float rndX = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyX) *2f - 1f;
         rndX = rndX * CurvedAmplitudeX;
-        float rndY = Mathf.PerlinNoise1D(Time.time * CurvedFrequencyY) *2f - 1f;
+        float rndY = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyY) *2f - 1f;
         rndY = rndY * CurvedAmplitudeY;
         
         CurvedMaterial.SetVector(_curveAmount, new Vector4( rndX, rndY, 0f, 0f ));
@@ -148,6 +146,17 @@ public class TrackManager : MonoBehaviour
     public void StopScrollTrack()
     {
         scrollSpeed = 0f;
+    }
+
+    private IEnumerator CountdownTrack()
+    {
+        //countdown 반복문으로 처리하기
+        for (int i = countdown ; i > 0; i--)
+        {
+            Debug.Log($"{i}");
+            yield return new WaitForSeconds(1f);
+        }
+            GameManager.IsPlaying = true;
     }
 
 

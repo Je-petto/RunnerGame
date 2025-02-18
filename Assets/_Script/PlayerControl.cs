@@ -34,7 +34,6 @@ public class PlayerControl : MonoBehaviour
 
     public PlayerState state;
 
-
     // 내부 사용 : 인스펙터 노출 안함
     private int currentLane = 1;
     private Vector3 targetpos;
@@ -48,6 +47,11 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
+        //CHEAT
+        //Space 키 토글 , 처음 => 멈춤 ,  다시 => Play
+        if (Input.GetKeyDown(KeyCode.Space))
+            GameManager.IsPlaying = !GameManager.IsPlaying; 
+
         if (pivot == null || GameManager.IsPlaying == false)
             return;
 

@@ -57,8 +57,9 @@ public class ObstacleManager : MonoBehaviour
     {
         while( true )
         {
-            if (GameManager.IsPlaying == false)
-                yield break;
+            yield return new WaitUntil( ()=> GameManager.IsPlaying == true);
+            // if (GameManager.IsPlaying == false) -> false를 활용한 방식
+            //     yield break;
 
             SpawnObstacle(Random.Range(0,trackMgr.laneList.Count));
 
