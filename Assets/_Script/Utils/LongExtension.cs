@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public static class IntExtension
+public static class LongExtension
 {
     private static List<Tuple<int, string>> units = new List<Tuple<int, string>>()
     {  

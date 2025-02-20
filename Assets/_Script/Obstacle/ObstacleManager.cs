@@ -1,25 +1,38 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using CustomInspector;
 
 // enum : Enumerator
 public enum ObstacleType { Single, Double, Triple, _MAX_ }
 
-public class ObstacleManager : MonoBehaviour
+[System.Serializable]
+public class ObstaclePool : RandomItem
 {
-    [Space(20)]
-    [SerializeField] List<Obstacle> obstacleSingle;
-    [SerializeField] List<Obstacle> obstacleDouble;
-    [SerializeField] List<Obstacle> obstacleTriple;
+    public List<Obstacle> obstacleList;
 
+    public override Object GetItem()
+    {
+        if(obstacleList == null || obstacleList.Count <= 0)
+            return null;
+        
+        return obstacleList[Random.Range(0, obstacleList.Count)];
+    }
+}
+
+public class ObstacleManager : MonoBehaviour
+{    
+    [Space(20)]
+    public List<ObstaclePool> obstaclePools;    
 
     [Space(20)]
     [SerializeField] float spawnZpos = 60f;
-    [SerializeField] float spawnInterval = 1f;
+    [SerializeField, AsRange(0, 100)] Vector2 spawnInterval;
 
 
 
     private TrackManager trackMgr;
+    private RandomGenerator randomGenerator = new RandomGenerator();
 
 
     // Coroutine 방식 : Function, Method, Subroutine
@@ -33,6 +46,11 @@ public class ObstacleManager : MonoBehaviour
         }
 
         trackMgr = tm[0];
+
+        //ObstaclePools에 있는 모든 값을 랜덤생성기에 등록.
+        foreach(var pool in obstaclePools)
+            randomGenerator.AddItem(pool);
+
 
         //yield return new WaitForEndOfFrame();  // 지연 : 1프레임만 지연
         //yield return new WaitForSeconds(2f);   // 지연 : 2초 지연
@@ -75,7 +93,7 @@ public class ObstacleManager : MonoBehaviour
             // 5m - 0m = 5 > 1m 성립 => lastMileage = 5m
             // 5.5m - 5m = 0.5m > 1m 패스
             // 6.2m - 5m = 1.2m > 1m 성립 => last = 6.2m
-            if (GameManager.mileage - lastMileage > spawnInterval )
+            if (GameManager.mileage - lastMileage > Random.Range(spawnInterval.x, spawnInterval.y) )
             {
                 SpawnObstacle();        
 
@@ -89,21 +107,11 @@ public class ObstacleManager : MonoBehaviour
     {
         // 랜덤1 : Lane 을 랜덤 생성
         int rndLane = Random.Range(0,trackMgr.laneList.Count);
-        // 랜덤2 : Prefab 타입 랜덤 생성
-        int rndType = Random.Range((int)ObstacleType.Single, (int)ObstacleType._MAX_);
 
-        List<Obstacle> obstacles = rndType switch 
-        { 
-            (int)ObstacleType.Single => obstacleSingle,
-            (int)ObstacleType.Double => obstacleDouble,
-            (int)ObstacleType.Triple => obstacleTriple,
-            _ => null
-        };
-        
-        if (obstacles.Count <= 0)
-            return (-1, null);
-
-        Obstacle prefab = obstacles[Random.Range(0, obstacles.Count)];
+        // GetRandom() => ObstaclePool 가져온다
+        // GetItem() => Pool 안에서 RandomItem 가져온다
+        // asObstacle => RandomItem을 Obstacle로 형변환
+        Obstacle prefab = randomGenerator.GetRandom().GetItem() as Obstacle;
         if (prefab == null)
             return (-1, null);
 
