@@ -6,7 +6,8 @@ public static class GameManager
     //전역 변수
     public static bool IsPlaying = false;
 
-    public static float mileage = 0f;
+    //이동 거리
+    public static double mileage;
 
 }
 

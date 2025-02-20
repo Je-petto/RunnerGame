@@ -1,20 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 // enum : Enumerator
-public enum ObstacleType { Single, Top, Bottom, _MAX_}
+public enum ObstacleType { Single, Double, Triple, _MAX_ }
 
 public class ObstacleManager : MonoBehaviour
 {
+    [Space(20)]
     [SerializeField] List<Obstacle> obstacleSingle;
-    [SerializeField] List<Obstacle> obstacleTop;
-    [SerializeField] List<Obstacle> obstacleBottom;
+    [SerializeField] List<Obstacle> obstacleDouble;
+    [SerializeField] List<Obstacle> obstacleTriple;
+
 
     [Space(20)]
-    [SerializeField] Obstacle obstaclePrefab;
-    [SerializeField] Transform spawnPoint;
-
+    [SerializeField] float spawnZpos = 60f;
     [SerializeField] float spawnInterval = 1f;
 
 
@@ -29,7 +29,7 @@ public class ObstacleManager : MonoBehaviour
         if ( tm == null || tm.Length <= 0 )
         {
             Debug.LogError($"트랙관리자 없음");
-            yield break;
+            yield break; // return 과 동일 : 함수 완전 탈출
         }
 
         trackMgr = tm[0];
@@ -43,60 +43,70 @@ public class ObstacleManager : MonoBehaviour
 
 
     // 장애물 생성 ( lane = 0,1,2 )
-    public void SpawnObstacle(int lane)
+    public void SpawnObstacle()
     {
-        // Lane 위치
-        lane = Mathf.Clamp(lane, 0, trackMgr.laneList.Count-1);                
-        Transform laneTransform = trackMgr.laneList[lane];
-        Vector3 pos = new Vector3(laneTransform.position.x, laneTransform.position.y, spawnPoint.position.z );
+        (int lane, Obstacle prefab) = RandomLanePrefab();
+        
         // Z 위치
-        // 현재 해당 트랙의 자식으로 넣는다
-        // 현재 해당 트랙 ? 
-        Track t = trackMgr.GetTrackByZ(spawnPoint.position.z);
+        // 현재 해당 트랙의 자식으로 넣는다        
+        Track t = trackMgr.GetTrackByZ(spawnZpos);
         if (t == null)
         {
             Debug.LogWarning("Z 위치에 해당하는 트랙이 없음");
             return;
         }
-
-        var obstacle = RandomTypeSpawn();
-
-        Instantiate(obstacle, pos, Quaternion.identity, t.ObstacleRoot );
+        
+        if (prefab != null)
+        {
+            Obstacle o = Instantiate(prefab, t.ObstacleRoot);
+            o.SetLanePostion(lane, spawnZpos, trackMgr);
+        }
     }
 
 
     IEnumerator InfiniteSpawn()
     {
+        double lastMileage = 0f;
         while( true )
         {
-            yield return new WaitUntil( ()=> GameManager.IsPlaying == true);
-            // if (GameManager.IsPlaying == false) -> false를 활용한 방식
-            //     yield break;
+            yield return new WaitUntil( ()=> GameManager.IsPlaying );
 
-            SpawnObstacle(Random.Range(0,trackMgr.laneList.Count));
+            // 1m 거리간격 이상일때만 장애물을 생성한다
+            // 5m - 0m = 5 > 1m 성립 => lastMileage = 5m
+            // 5.5m - 5m = 0.5m > 1m 패스
+            // 6.2m - 5m = 1.2m > 1m 성립 => last = 6.2m
+            if (GameManager.mileage - lastMileage > spawnInterval )
+            {
+                SpawnObstacle();        
 
-            yield return new WaitForSeconds(spawnInterval);
+                lastMileage = GameManager.mileage;
+            }
         }
     }
 
-    Obstacle RandomTypeSpawn()
+
+    (int, Obstacle) RandomLanePrefab()
     {
-        // 랜덤: ObstacleType
+        // 랜덤1 : Lane 을 랜덤 생성
+        int rndLane = Random.Range(0,trackMgr.laneList.Count);
+        // 랜덤2 : Prefab 타입 랜덤 생성
         int rndType = Random.Range((int)ObstacleType.Single, (int)ObstacleType._MAX_);
 
-        List<Obstacle> obstacles = rndType switch
-        {
+        List<Obstacle> obstacles = rndType switch 
+        { 
             (int)ObstacleType.Single => obstacleSingle,
-            (int)ObstacleType.Top => obstacleTop,
-            (int)ObstacleType.Bottom => obstacleBottom,
-            _=> null
+            (int)ObstacleType.Double => obstacleDouble,
+            (int)ObstacleType.Triple => obstacleTriple,
+            _ => null
         };
+        
+        if (obstacles.Count <= 0)
+            return (-1, null);
 
-        // 랜덤: varient
         Obstacle prefab = obstacles[Random.Range(0, obstacles.Count)];
+        if (prefab == null)
+            return (-1, null);
 
-        return prefab;
+        return (rndLane, prefab);
     }
-
-
 }

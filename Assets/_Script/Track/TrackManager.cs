@@ -12,7 +12,7 @@ public class TrackManager : MonoBehaviour
     [Space(20)]
     [Range(0f, 50f)] public float scrollSpeed = 10f;    
     [Range(1, 10)] public int trackCount = 3;
-    [Range(1, 5)] public int countdown;
+    [Range(1, 5)] public int countdown = 3;
 
     [Space(20)]
     [SerializeField] Material CurvedMaterial;
