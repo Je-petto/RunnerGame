@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TrackManager : MonoBehaviour
 {
+
+    private IngameUI uiIngame;
+    
     [Space(20)]
     [SerializeField] Track trackPrefab;
     [SerializeField] PlayerControl playerPrefab;
@@ -38,6 +41,18 @@ public class TrackManager : MonoBehaviour
     {
         // 메인 카메라 Transform을 미리 받아온다.
         camTransform = Camera.main.transform;
+
+        // 인게임 UI를 미리 받아온다. 없으면 Pass
+        uiIngame = FindAnyObjectByType<IngameUI>();
+
+        //씬에 존재하는 모든 오브젝트를 가져와라
+        //IngameUI[] uis= FindObjectsByType<IngameUI>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        
+        //씬에 좀재하는 오브젝트들 중 아무거나 하나 가져와라
+        //IngameUI uiAny = FindAnyObjectByType<IngameUI>();
+
+        //씬에 존재하는 오브젝트들의 순서들 중 첫번째를 가져와라 
+        //IngameUI uiFirst = FindFirstObjectByType<IngameUI>();
 
         SpawnInitialTrack();
         SpawnPlayer();
@@ -155,7 +170,7 @@ public class TrackManager : MonoBehaviour
         //countdown 반복문으로 처리하기
         for (int i = countdown ; i > 0; i--)
         {
-            Debug.Log($"{i}");
+            uiIngame.ShowInfo($"{i}");
             yield return new WaitForSeconds(1f);
         }
             GameManager.IsPlaying = true;
