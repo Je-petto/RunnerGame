@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -2267207644359287469}
   m_Layer: 0
   m_Name: SB_PoliceCar
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 3224335291736591451}
   m_Layer: 0
   m_Name: Pivot
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,9 +85,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3224335291736591451}
     m_Modifications:
+    - target: {fileID: 1061295667794822, guid: 118415f9a43cc674e968c1911c8a40b6, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1168928426515430, guid: 118415f9a43cc674e968c1911c8a40b6, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 1198537294408038, guid: 118415f9a43cc674e968c1911c8a40b6, type: 3}
       propertyPath: m_Name
       value: SM_Veh_Car_Police_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198537294408038, guid: 118415f9a43cc674e968c1911c8a40b6, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244961461998632, guid: 118415f9a43cc674e968c1911c8a40b6, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663562584613094, guid: 118415f9a43cc674e968c1911c8a40b6, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4922074669826246, guid: 118415f9a43cc674e968c1911c8a40b6, type: 3}
       propertyPath: m_LocalPosition.x

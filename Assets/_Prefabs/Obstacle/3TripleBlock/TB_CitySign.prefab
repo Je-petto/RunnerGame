@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7037763058841193676}
   m_Layer: 0
   m_Name: TB_CitySign
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 3224335291736591451}
   m_Layer: 0
   m_Name: Pivot
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,6 +90,10 @@ PrefabInstance:
     - target: {fileID: 1968892262857312, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Billboard_Base_01_City (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1968892262857312, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4883275375632962, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -186,9 +190,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3224335291736591451}
     m_Modifications:
+    - target: {fileID: 1120493869779930, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387244538817646, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483660515528114, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800079883749542, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867246459743666, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 1968892262857312, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Billboard_Base_01_City
+      objectReference: {fileID: 0}
+    - target: {fileID: 1968892262857312, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4883275375632962, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -288,6 +316,10 @@ PrefabInstance:
     - target: {fileID: 1968892262857312, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Billboard_Base_01_City (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1968892262857312, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4883275375632962, guid: 39d9cc17ec49bfd45b2d88479e548db8, type: 3}
       propertyPath: m_LocalPosition.x
