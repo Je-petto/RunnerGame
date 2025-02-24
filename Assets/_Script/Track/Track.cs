@@ -8,6 +8,7 @@ public class Track : MonoBehaviour
     public List<Transform> laneList;
 
     public Transform ObstacleRoot;
+    public Transform CollectableRoot;
 
 
     [HideInInspector] public TrackManager trackmgr;
@@ -36,3 +37,4 @@ public class Track : MonoBehaviour
         //Debug.Log( $"{name} : local = {EntryPoint.localPosition} , world = {EntryPoint.position}");
     }
 }
+

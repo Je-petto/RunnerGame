@@ -7,6 +7,9 @@ public enum PlayerState { Idle = 0, Move, Jump, Slide }
 
 public class PlayerControl : MonoBehaviour
 {
+    
+    [Space(20)]
+    [SerializeField] Material material;
     [Space(20)]
     // 속성 : 인스펙터 노출
     [SerializeField] Transform pivot;
@@ -34,6 +37,7 @@ public class PlayerControl : MonoBehaviour
 
     public PlayerState state;
 
+
     // 내부 사용 : 인스펙터 노출 안함
     private int currentLane = 1;
     private Vector3 targetpos;
@@ -47,10 +51,11 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        //CHEAT
-        //Space 키 토글 , 처음 => 멈춤 ,  다시 => Play
-        if (Input.GetKeyDown(KeyCode.Space))
-            GameManager.IsPlaying = !GameManager.IsPlaying; 
+        //[CHEAT]
+        //1 키 토글 , 처음 => 멈춤 , 다시 => 플레이
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            GameManager.IsPlaying = !GameManager.IsPlaying;
+
 
         if (pivot == null || GameManager.IsPlaying == false)
             return;
@@ -65,16 +70,21 @@ public class PlayerControl : MonoBehaviour
             HandleJump();          
 
         if (Input.GetButton("Slide"))
-            HandleSlide();
+            HandleSlide();        
     }
 
 
     void OnTriggerEnter(Collider other)
     {
-        if (other)        
-        {
+        if (other.tag == "Collectable")
+            {
+                DOVirtual.Float(0f,1f, 0.1f,v => material.SetFloat("_Impact", v))
+                    .OnComplete(()=>DOVirtual.Float(1f,0f, 0.1f,v => material.SetFloat("_Impact", v))
+                    .OnComplete(()=>material.SetFloat("_Impact", 0f)));
+                other.GetComponentInParent<Collectable>()?.Collect();
+            }        
+        else if ( other.tag == "Obstacle")
             GameManager.IsPlaying = false;
-        }
     }
 
 
@@ -152,67 +162,4 @@ public class PlayerControl : MonoBehaviour
     }
 
 }
-    // void Update()
-    // {
-    //     if (Input.GetButtonDown("Left") && isJumping == false)// 왼쪽 이동
-    //         HandlePlayer(-1);
-    //     else if(Input.GetButtonDown("Right") && isJumping == false)// 오른쪽 이동
-    //         HandlePlayer(1);
-    //     else if(Input.GetButtonDown("Jump") && isJumping == false)// 점프
-    //     {
-    //         jumpStartTime = Time.time;
-    //         isJumping = true;
-    //     }
-
-    //     if( isJumping == true )
-    //     {
-    //         //점프 시작 후 경과 시간 체크
-    //         float elapsedTime = Time.time - jumpStartTime;
-    //         // 분자/분모 => 퍼센트 
-    //         float p = Mathf.Clamp(elapsedTime / jumpDuration, 0f, 1f);
-    //         float height = jumpCurve.Evaluate(p) * jumpHeight;
-
-    //         transform.position = new Vector3(transform.position.x,height,targetpos.z);
-
-    //         if(p >=1f)
-    //         {
-    //             isJumping = false;
-    //             transform.position = new Vector3(transform.position.x,0f,targetpos.z);
-    //         }
-
-    //     }
-    //     // 점프 시간 종료 => isJumping을 False로 바꾼다
-
-
-    //     // UpdatePosition();
-    // }
-    // void UpdatePosition()
-    // {
-    //     // Lerp = Linear Interpolation : 선형보간
-    //     transform.position = Vector3.Lerp(transform.position, targetpos, speed * Time.deltaTime);
-    // }
-
-    // void UpdateJump()
-    // {
-    //     jumpStartTime = Time.time;
-    // }
-
-    
-        
-        // if (direction == -1) //left 이동
-        // {
-        //     //deformLeft.Factor = 1;
-        //     DOVirtual.Float(0f, 1f, moveDuration/2f, (v)=> deformLeft.Factor = v)
-        //             .OnComplete(()=> DOVirtual.Float(1f, 0f, moveDuration/2f, (v)=> deformLeft.Factor = v));
-        // }
-        // else if (direction == 1) //right 이동
-        // {
-        //     //deformRight.Factor = -1;
-        //     DOVirtual.Float(0f, 1f, moveDuration/2f, (v)=> deformLeft.Factor = v)
-        //             .OnComplete(()=> DOVirtual.Float(1f, 0f, moveDuration/2f, (v)=> deformLeft.Factor = v));
-        // }
-    
-        // pivot.DOLocalJump(targetpos, jumpHeight, 1, jumpDuration)
-        //         .OnComplete( ()=> isMoving = false)
-        //         .SetEase(jumpEase);
 

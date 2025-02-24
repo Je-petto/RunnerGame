@@ -18,7 +18,7 @@ public class TrackManager : MonoBehaviour
     [Range(1, 5)] public int countdown = 3;
 
     [Space(20)]
-    [SerializeField] Material CurvedMaterial;
+    [SerializeField] List<Material> CurvedMaterials;
     [Range(0f, 0.5f), SerializeField] float CurvedFrequencyX = 0.2f;   // 주기
     [Range(0f, 10f), SerializeField] float CurvedAmplitudeX = 5f;   // 진폭
 
@@ -141,7 +141,8 @@ public class TrackManager : MonoBehaviour
         float rndY = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyY) *2f - 1f;
         rndY = rndY * CurvedAmplitudeY;
         
-        CurvedMaterial.SetVector(_curveAmount, new Vector4( rndX, rndY, 0f, 0f ));
+        foreach( var m in CurvedMaterials)
+            m.SetVector(_curveAmount, new Vector4( rndX, rndY, 0f, 0f ));
     }
 
 

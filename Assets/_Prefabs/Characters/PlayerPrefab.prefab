@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb7ccc234a1637d428853b3fd8805f50, type: 2}
+  - {fileID: 2100000, guid: fc11046c910929d4795fb2a36c6c26af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
     active: 1
   - component: {fileID: 1486914005237315550}
     active: 1
-  - component: {fileID: 0}
+  - component: {fileID: 2849294462959931206}
     active: 1
   - component: {fileID: 112229289943039517}
     active: 1
@@ -290,7 +290,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb7ccc234a1637d428853b3fd8805f50, type: 2}
+  - {fileID: 2100000, guid: fc11046c910929d4795fb2a36c6c26af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
     active: 1
   - component: {fileID: 1486914005237315550}
     active: 1
-  - component: {fileID: 0}
+  - component: {fileID: 2849294462959931206}
     active: 1
   - component: {fileID: 112229289943039517}
     active: 1
@@ -451,8 +451,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.63, y: 0.39, z: 1.5}
-  m_Center: {x: 0, y: 0.26, z: 0}
+  m_Size: {x: 0.63, y: 0.53, z: 1.5}
+  m_Center: {x: 0, y: 0.29, z: 0}
 --- !u!1 &5449302625532651742
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18e55a65d312fb4f88bd0a56d333e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: fc11046c910929d4795fb2a36c6c26af, type: 2}
   pivot: {fileID: 3140132801676616535}
   colNormal: {fileID: 740316349695188253}
   colSlide: {fileID: 7962039305699681373}
@@ -515,7 +516,7 @@ MonoBehaviour:
   jumpIntervals:
   - 0.25
   - 0.5
-  - 0.75
+  - 0.25
   - 0.25
   slideDuration: 0.5
   trackMgr: {fileID: 0}
@@ -612,7 +613,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb7ccc234a1637d428853b3fd8805f50, type: 2}
+  - {fileID: 2100000, guid: fc11046c910929d4795fb2a36c6c26af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -665,7 +666,7 @@ MonoBehaviour:
     active: 1
   - component: {fileID: 1486914005237315550}
     active: 1
-  - component: {fileID: 0}
+  - component: {fileID: 2849294462959931206}
     active: 1
   - component: {fileID: 112229289943039517}
     active: 1
@@ -737,7 +738,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb7ccc234a1637d428853b3fd8805f50, type: 2}
+  - {fileID: 2100000, guid: fc11046c910929d4795fb2a36c6c26af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -790,7 +791,7 @@ MonoBehaviour:
     active: 1
   - component: {fileID: 1486914005237315550}
     active: 1
-  - component: {fileID: 0}
+  - component: {fileID: 2849294462959931206}
     active: 1
   - component: {fileID: 112229289943039517}
     active: 1
@@ -1046,7 +1047,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb7ccc234a1637d428853b3fd8805f50, type: 2}
+  - {fileID: 2100000, guid: fc11046c910929d4795fb2a36c6c26af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
