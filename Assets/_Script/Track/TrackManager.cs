@@ -168,13 +168,18 @@ public class TrackManager : MonoBehaviour
 
     private IEnumerator CountdownTrack()
     {
+        yield return new WaitForEndOfFrame();
+        
         //countdown 반복문으로 처리하기
         for (int i = countdown ; i > 0; i--)
         {
-            uiIngame.ShowInfo($"{i}");
+            uiIngame.ShowInfo($"{i}", 2f);
+
             yield return new WaitForSeconds(1f);
         }
-            GameManager.IsPlaying = true;
+            
+        uiIngame.ShowInfo("<color=#007235>GO!</color>", 1.5f);
+        GameManager.IsPlaying = true;
     }
 
 

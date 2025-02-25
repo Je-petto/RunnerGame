@@ -29,24 +29,14 @@ public class IngameUI : MonoBehaviour
         UpdateLife();
     }
     
-
-    Sequence _seqInfo;
     public void ShowInfo(string info, float duration = 1f)
     {                
-        feedbackInformation?.PlayFeedbacks();
-
-        // tmInformation.transform.localScale = Vector3.zero;
+        if (feedbackInformation.IsPlaying)
+            feedbackInformation.StopFeedbacks();
         
-        // if (_seqInfo != null)
-        //     _seqInfo.Kill(true);
-
-        // // duration 전체 길이 => 연출이 duration 안에 종료되도록
-        // _seqInfo = DOTween.Sequence().OnComplete( ()=> tmInformation.transform.localScale = Vector3.zero );
-        // _seqInfo.AppendCallback( ()=> tmInformation.text = info );
-        // _seqInfo.Append(tmInformation.transform.DOScale(1.2f, duration*0.1f));
-        // _seqInfo.Append(tmInformation.transform.DOScale(1f, duration*0.2f));
-        // _seqInfo.AppendInterval(duration*0.4f);
-        // _seqInfo.Append(tmInformation.transform.DOScale(0f, duration*0.3f));
+        tmInformation.text = info;
+        feedbackInformation.GetFeedbackOfType<MMF_Pause>().PauseDuration = duration;
+        feedbackInformation?.PlayFeedbacks();
     }
 
     void UpdateMileage()
@@ -94,7 +84,7 @@ public class IngameUI : MonoBehaviour
         tmLife.text = GameManager.life.ToString();
         if (GameManager.life <= 0)
         {
-            ShowInfo("GAMEOVER", 5f);
+            ShowInfo("GAME OVER", 5f);
             GameManager.IsPlaying = false;
             GameManager.IsGameover = true;
         }
