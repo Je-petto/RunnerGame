@@ -31,6 +31,7 @@ public class TrackManager : MonoBehaviour
     private List<Track> trackList = new List<Track>(); // 생성한 트랙들 보관 
     private Transform camTransform;    
 
+    //3Lane => 0 : Left, 1 : Center, 2 : Right
     [HideInInspector] public List<Transform> laneList;   // 현재 트랙의 라인 정보를 전달
 
 

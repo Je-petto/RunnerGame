@@ -85,7 +85,6 @@ public class IngameUI : MonoBehaviour
         if (GameManager.life <= 0)
         {
             ShowInfo("GAME OVER", 5f);
-            GameManager.IsPlaying = false;
             GameManager.IsGameover = true;
         }
         

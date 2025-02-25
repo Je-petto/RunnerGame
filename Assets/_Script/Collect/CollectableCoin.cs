@@ -10,11 +10,11 @@ public class CollectableCoin : Collectable
     // 해당 코인 증가량
     public uint Add = 1;
 
-    public override void SetLanePostion(int lane, float zpos, TrackManager tm)
+    public override void SetLanePostion(int lane, float ypos, float zpos, TrackManager tm)
     {
         lane = Mathf.Clamp(lane, 0, tm.laneList.Count-1);                
         Transform laneTransform = tm.laneList[lane];
-        Vector3 pos = new Vector3(laneTransform.position.x, laneTransform.position.y, zpos );
+        Vector3 pos = new Vector3(laneTransform.position.x, ypos, zpos );
 
         transform.SetPositionAndRotation(pos, Quaternion.identity);
     }

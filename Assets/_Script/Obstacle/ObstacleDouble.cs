@@ -2,6 +2,7 @@ using UnityEngine;
 
 
 // 싱글의 파생형
+// Abstract -> Concrete
 // TYPE { 2Block , Composited }
 public class ObstacleDouble : Obstacle
 {  

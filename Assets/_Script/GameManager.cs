@@ -15,5 +15,8 @@ public static class GameManager
     public static uint coins;
 
     public static int life = 3;
+
+    // 임시 처리용 변수 (Sin 그래프)
+    public static float waveValue;
 }
 

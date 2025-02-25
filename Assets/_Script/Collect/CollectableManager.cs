@@ -26,10 +26,12 @@ public class CollectableManager : MonoBehaviour
     [Space(20)]
     [SerializeField] float spawnZpos = 60f;
     [SerializeField, AsRange(0, 100)] Vector2 spawnInterval;
+    [SerializeField] int spawnQuota; // 한 패턴에서 최대 찍을 개수
 
 
     private TrackManager trackMgr;
     private RandomGenerator randomGenerator = new RandomGenerator();
+    private LaneGenerator laneGenerator;
 
     IEnumerator Start()
     {
@@ -39,6 +41,10 @@ public class CollectableManager : MonoBehaviour
             Debug.LogError($"트랙관리자 없음");
             yield break;
         }
+
+        yield return new WaitForEndOfFrame();
+
+        laneGenerator = new LaneGenerator(trackMgr.laneList.Count, spawnQuota);
         
         foreach( var pool in collectablePools )
             randomGenerator.AddItem(pool);
@@ -66,7 +72,7 @@ public class CollectableManager : MonoBehaviour
         if (prefab != null)
         {
             Collectable o = Instantiate(prefab, t.CollectableRoot);
-            o.SetLanePostion(lane, spawnZpos, trackMgr);
+            o.SetLanePostion(lane, GameManager.waveValue, spawnZpos, trackMgr);
         }
     }
 
@@ -90,14 +96,13 @@ public class CollectableManager : MonoBehaviour
 
     (int, Collectable) RandomLanePrefab()
     {
-        // 랜덤1 : Lane 을 랜덤 생성
-        int rndLane = Random.Range(0,trackMgr.laneList.Count);
+        int lane = laneGenerator.GetNextLane();
         Collectable prefab = randomGenerator.GetRandom().GetItem() as Collectable;
 
         if (prefab == null)
             return (-1, null);
 
-        return (rndLane, prefab);
+        return (lane, prefab);
     }
 
 }
