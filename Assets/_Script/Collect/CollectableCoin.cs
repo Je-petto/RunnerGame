@@ -1,14 +1,15 @@
 using UnityEngine;
-using System.Collections;
 using MoreMountains.Feedbacks;
+
 
 public class CollectableCoin : Collectable
 {
     [SerializeField] Transform pivot;
     [SerializeField] MMF_Player feedbackDisappear;
+
     
     // 해당 코인 증가량
-    public uint Add = 1;
+    [SerializeField] uint Add = 1;
 
     public override void SetLanePostion(int lane, float ypos, float zpos, TrackManager tm)
     {
@@ -25,25 +26,7 @@ public class CollectableCoin : Collectable
 
         transform.SetParent(null);
         feedbackDisappear?.PlayFeedbacks();
-
-
-        //StartCoroutine(Disappear());
-
-
     }
 
-    // 하드코딩 방법
-    // IEnumerator Disappear()
-    // {
-    //     // 코인이 사라질 때, Track 종속이 아닌, World로 바꾼다.
-    //     // Local => World 
-    //     transform.SetParent(null);
-       
-    //     pivot.gameObject.SetActive(false);
-    //     particle.Play();
 
-    //     yield return new WaitUntil( ()=> particle.isPlaying == false);
-
-    //     Destroy(gameObject);
-    // }
 }

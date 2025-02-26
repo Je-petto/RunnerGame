@@ -5,8 +5,6 @@ using UnityEngine;
 public class TrackManager : MonoBehaviour
 {
 
-    private IngameUI uiIngame;
-    
     [Space(20)]
     [SerializeField] Track trackPrefab;
     [SerializeField] PlayerControl playerPrefab;
@@ -14,8 +12,9 @@ public class TrackManager : MonoBehaviour
 
     [Space(20)]
     [Range(0f, 50f)] public float scrollSpeed = 10f;    
-    [Range(1, 10)] public int trackCount = 3;
-    [Range(1, 5)] public int countdown = 3;
+    [Range(1, 100)] public int trackCount = 3;   
+    [Range(1,5)] public int countdown = 3;
+
 
     [Space(20)]
     [SerializeField] List<Material> CurvedMaterials;
@@ -30,8 +29,10 @@ public class TrackManager : MonoBehaviour
 
     private List<Track> trackList = new List<Track>(); // 생성한 트랙들 보관 
     private Transform camTransform;    
+    private IngameUI uiIngame;
 
-    //3Lane => 0 : Left, 1 : Center, 2 : Right
+
+    // 3Lane => 0:Left, 1:Center, 2:Right
     [HideInInspector] public List<Transform> laneList;   // 현재 트랙의 라인 정보를 전달
 
 
@@ -43,22 +44,22 @@ public class TrackManager : MonoBehaviour
         // 메인 카메라 Transform을 미리 받아온다.
         camTransform = Camera.main.transform;
 
-        // 인게임 UI를 미리 받아온다. 없으면 Pass
-        uiIngame = FindAnyObjectByType<IngameUI>();
+        // 인게임 UI 를 미리 받아온다. 없으면 패스
+        uiIngame = FindFirstObjectByType<IngameUI>();
 
-        //씬에 존재하는 모든 오브젝트를 가져와라
-        //IngameUI[] uis= FindObjectsByType<IngameUI>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        
-        //씬에 좀재하는 오브젝트들 중 아무거나 하나 가져와라
+        // 씬에 존재하는 모든 오브젝트를 가져와라
+        //IngameUI[] uis = FindObjectsByType<IngameUI>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
+        // 씬에 존재하는 오브젝트들 중 아무거나 하나만 가져와라
         //IngameUI uiAny = FindAnyObjectByType<IngameUI>();
-
-        //씬에 존재하는 오브젝트들의 순서들 중 첫번째를 가져와라 
+        // 씬에 존재하는 오브젝트들 중 생성한 순서에서 첫번째를 가져와라
         //IngameUI uiFirst = FindFirstObjectByType<IngameUI>();
+
 
         SpawnInitialTrack();
         SpawnPlayer();
-        StartCoroutine(CountdownTrack());
 
+        StartCoroutine(CountdownTrack());
     }
 
     void Update()
@@ -67,9 +68,9 @@ public class TrackManager : MonoBehaviour
             return;
 
         RepositionTrack();
-        BendTrack();
+        BendTrack();    
 
-        GameManager.mileage += scrollSpeed * Time.smoothDeltaTime;      
+        GameManager.mileage += scrollSpeed * Time.smoothDeltaTime;    
     }
 
 
@@ -124,10 +125,12 @@ public class TrackManager : MonoBehaviour
         }
     }
 
+
     float elapsedTime;
+
     void BendTrack()
     {
-        if (scrollSpeed <= 0f) return;
+        //if (scrollSpeed <= 0f) return;
 
         // 0f ~ 1f => -1f ~ 1f;
 
@@ -142,7 +145,7 @@ public class TrackManager : MonoBehaviour
         float rndY = Mathf.PerlinNoise1D(elapsedTime * CurvedFrequencyY) *2f - 1f;
         rndY = rndY * CurvedAmplitudeY;
         
-        foreach( var m in CurvedMaterials)
+        foreach( var m in CurvedMaterials )
             m.SetVector(_curveAmount, new Vector4( rndX, rndY, 0f, 0f ));
     }
 
@@ -169,17 +172,17 @@ public class TrackManager : MonoBehaviour
 
     private IEnumerator CountdownTrack()
     {
-        yield return new WaitForEndOfFrame();
-        
-        //countdown 반복문으로 처리하기
-        for (int i = countdown ; i > 0; i--)
+        yield return new WaitForEndOfFrame();        
+
+        // countdown 으로 반복문 처리하기
+        for ( int i=countdown; i>0; i-- )
         {
-            uiIngame.ShowInfo($"{i}", 2f);
+            uiIngame.ShowInfo($"{i}", 1.5f);
 
             yield return new WaitForSeconds(1f);
         }
-            
-        uiIngame.ShowInfo("<color=#007235>GO!</color>", 1.5f);
+        
+        uiIngame.ShowInfo("GO!", 1.5f);
         GameManager.IsPlaying = true;
     }
 

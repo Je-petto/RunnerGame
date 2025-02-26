@@ -14,9 +14,7 @@ public static class GameManager
     // 획득 코인 (int -21억 ~ 21억 : 4byte , unit 0 ~ 42억 : 4byte )
     public static uint coins;
 
+    // 
     public static int life = 3;
-
-    // 임시 처리용 변수 (Sin 그래프)
-    public static float waveValue;
 }
 

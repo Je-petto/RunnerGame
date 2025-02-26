@@ -4,6 +4,7 @@ using DG.Tweening;
 using CustomInspector;
 using MoreMountains.Feedbacks;
 
+
 public class IngameUI : MonoBehaviour
 {
     [HorizontalLine]
@@ -25,18 +26,23 @@ public class IngameUI : MonoBehaviour
     void Update()
     {
         UpdateMileage();
-        UpdateCoins();
+        UpdateCoins(); 
         UpdateLife();
     }
     
+
     public void ShowInfo(string info, float duration = 1f)
-    {                
+    {
         if (feedbackInformation.IsPlaying)
             feedbackInformation.StopFeedbacks();
-        
-        tmInformation.text = info;
+
+        // (예) 5초 동안 표시
+        // 표시중에 새로운 콜
+        // 1. 기존 작업 마무리하고 처리한다 => 스택 쌓아두고 처리
+        // 2. 기존 작업 취소하고 새로 바로 처리한다. => 즉시 업데이트 처리
+        tmInformation.text = info;   
         feedbackInformation.GetFeedbackOfType<MMF_Pause>().PauseDuration = duration;
-        feedbackInformation?.PlayFeedbacks();
+        feedbackInformation.PlayFeedbacks();
     }
 
     void UpdateMileage()
@@ -82,12 +88,13 @@ public class IngameUI : MonoBehaviour
             return;
 
         tmLife.text = GameManager.life.ToString();
+
         if (GameManager.life <= 0)
         {
             ShowInfo("GAME OVER", 5f);
             GameManager.IsGameover = true;
         }
-        
+
         lastLife = GameManager.life;
     }
 }

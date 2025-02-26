@@ -7,12 +7,11 @@ public interface Lane
 {
 
     public string Name { get; }
-    public int MaxLane {get; }
 
     //초기화 함수
     public void Initialize(int maxlane);
 
     // Lane 정보를 가져오는 함수
-    public int GetNextLane();
+    public LaneData GetNextLane();
 
 }
