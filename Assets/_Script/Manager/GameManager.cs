@@ -8,13 +8,13 @@ public static class GameManager
     public static bool IsPlaying = false;
     public static bool IsGameover = false;
 
-    // 이동 거리
-    public static double mileage;
+    
+    public static double mileage; //누적 거리
+    public static uint mileageFinish; // Finish 거리
 
     // 획득 코인 (int -21억 ~ 21억 : 4byte , unit 0 ~ 42억 : 4byte )
     public static uint coins;
 
-    // 
     public static int life = 3;
 }
 
