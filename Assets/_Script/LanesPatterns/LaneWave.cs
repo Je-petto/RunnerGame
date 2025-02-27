@@ -16,12 +16,14 @@ public class LaneWave : Lane
         
         System.Random random = new System.Random();
         data.currentLane = random.Next(0, maxlane);
+
+        elapsed = 0f;
     }
 
     public LaneData GetNextLane()
     {        
-        elapsed += 0.1f; 
         data.currentY = Mathf.Abs(Mathf.Sin(elapsed * Mathf.PI * frequency)) * amplitude;
+        elapsed += 0.1f; 
 
         return data;
     }
