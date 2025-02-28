@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using CustomInspector;
 using MoreMountains.Feedbacks;
+using System.Collections.Generic;
 
 
 public class IngameUI : MonoBehaviour
@@ -13,7 +15,12 @@ public class IngameUI : MonoBehaviour
 
 
     [HorizontalLine]
-    [SerializeField] TextMeshProUGUI tmMileage;
+    [SerializeField] TextMeshProUGUI mileageText;
+    [SerializeField] Slider mileageSlider;
+    [SerializeField] SliderUI mileageSliderui;
+
+    
+    [HorizontalLine]
     [SerializeField] TextMeshProUGUI tmCoin;
     [SerializeField] TextMeshProUGUI tmLife;
 
@@ -31,6 +38,17 @@ public class IngameUI : MonoBehaviour
     }
     
 
+    public void SetMileage(List<PhaseSO> phases)
+    {
+        foreach( var p in phases )
+            mileageSliderui.AddIcon(p.Icon, (float)p.Mileage / GameManager.mileageFinish);
+    }
+
+    public void SetPhase(PhaseSO phase)
+    {
+        ShowInfo(phase.Name);
+    }
+
     public void ShowInfo(string info, float duration = 1f)
     {
         if (feedbackInformation.IsPlaying)
@@ -45,6 +63,9 @@ public class IngameUI : MonoBehaviour
         feedbackInformation.PlayFeedbacks();
     }
 
+
+    
+
     void UpdateMileage()
     {
         // 작은수 표현
@@ -52,14 +73,16 @@ public class IngameUI : MonoBehaviour
         {
             long intpart = (long)GameManager.mileage;
             int decpart = (int)((GameManager.mileage - intpart) * 10);
-            tmMileage.text = $"{intpart}<size=80%>.{decpart}</size><size=60%>m</size>";
+            mileageText.text = $"{intpart}<size=80%>.{decpart}</size><size=60%>m</size>";
         }
         // 큰수 표현
         else
         {
             ((long)GameManager.mileage).ToStringKilo(out string intpart, out string decpart, out string unitpart);        
-            tmMileage.text = $"{intpart}<size=80%>{decpart}{unitpart}</size><size=60%>m</size>";
+            mileageText.text = $"{intpart}<size=80%>{decpart}{unitpart}</size><size=60%>m</size>";
         }
+
+        mileageSlider.value = (float)(GameManager.mileage / GameManager.mileageFinish);
     }
 
     private uint _lastcoins;

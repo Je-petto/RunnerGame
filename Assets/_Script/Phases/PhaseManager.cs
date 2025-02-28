@@ -13,9 +13,10 @@ public class PhaseManager : MonoBehaviour
 
 
     [HorizontalLine("Phase 속성"), HideField] public bool _l1;
-    [SerializeField] List<Phase> mileageList = new List<Phase>();
-
+    [SerializeField, Foldout] List<PhaseSO> phaseList = new List<PhaseSO>();
+    
     private TrackManager trkMgr;
+    private ObstacleManager obsMgr;
     private IngameUI uiIngame;
 
 
@@ -24,13 +25,13 @@ public class PhaseManager : MonoBehaviour
     IEnumerator Start()
     {
         trkMgr = FindFirstObjectByType<TrackManager>();
-        yield return new WaitUntil( ()=> trkMgr != null );
-
+        obsMgr = FindFirstObjectByType<ObstacleManager>();
         uiIngame = FindFirstObjectByType<IngameUI>();
-        yield return new WaitUntil( ()=> uiIngame != null );
 
         GetFinishline();
 
+        uiIngame.SetMileage(phaseList);
+        
         yield return new WaitUntil( ()=> GameManager.IsPlaying );
         StartCoroutine(IntervalUpdate());
     }
@@ -38,7 +39,7 @@ public class PhaseManager : MonoBehaviour
 
     IEnumerator IntervalUpdate()
     {
-        if(mileageList == null || mileageList.Count <= 0)
+        if(phaseList == null || phaseList.Count <= 0)
             yield break;
 
 
@@ -46,14 +47,14 @@ public class PhaseManager : MonoBehaviour
 
         while( true )
         {
-            Phase phase = mileageList[i];
+            PhaseSO phase = phaseList[i];
             if (GameManager.mileage >= phase.Mileage)
             {
                 SetPhase(phase);
                 i++;
             }
 
-            if (i >= mileageList.Count)
+            if (i >= phaseList.Count)
             {
                 GameClear(phase);
                 yield break;
@@ -65,23 +66,22 @@ public class PhaseManager : MonoBehaviour
 
     void GetFinishline()
     {
-        Phase phaseEnd = mileageList.LastOrDefault();       
+        PhaseSO phaseEnd = phaseList.LastOrDefault();       
 
         GameManager.mileageFinish = phaseEnd.Mileage;
     }
 
 
-
-    void SetPhase(Phase phase)
+    void SetPhase(PhaseSO phase)
     {
-        uiIngame?.ShowInfo(phase.Name);
+        uiIngame?.SetPhase(phase);
         trkMgr?.SetPhase(phase);
+        obsMgr?.SetPhase(phase);
     }
 
-    void GameClear(Phase phase)
+    void GameClear(PhaseSO phase)
     {
-        uiIngame?.ShowInfo(phase.Name);
-        trkMgr?.SetPhase(phase);
+        SetPhase(phase);
 
         GameManager.IsPlaying = false;
         GameManager.IsGameover = true;

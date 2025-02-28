@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using CustomInspector;
+using DG.Tweening;
 
 
 
@@ -23,7 +24,8 @@ public class ObstacleManager : MonoBehaviour
 {
 
     [Space(20)]
-    public List<ObstaclePool> obstaclePools;
+    //public List<ObstaclePool> obstaclePools;
+    [Foldout, SerializeField] ObstacleSO data;
 
 
     [Space(20)]
@@ -46,7 +48,7 @@ public class ObstacleManager : MonoBehaviour
         }
 
         // Obstacle Pools 에 있는 모든 값을 랜덤생성기에 등록.
-        foreach( var pool in obstaclePools )
+        foreach( var pool in data.pools )
             randomGenerator.AddItem(pool);
 
 
@@ -115,5 +117,11 @@ public class ObstacleManager : MonoBehaviour
             return (-1, null);
 
         return (rndLane, prefab);
+    }
+
+    public void SetPhase(PhaseSO phase, float duration = 1f)
+    {
+        // 장애물 interval 적용
+        DOVirtual.Vector2(spawnInterval, phase.obstacleData.interval, duration, i => spawnInterval = i ).SetEase(Ease.InOutSine);
     }
 }
