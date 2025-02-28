@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Phase1_Start
   m_EditorClassIdentifier: 
   Name: START!
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 400738b43e5444d989944cff9751ef69, type: 3}
   Mileage: 0
-  scrollSpeed: 10
+  scrollSpeed: 15
   obstacleInterval: {x: 15, y: 20}
-  obstacleData: {fileID: 11400000, guid: 65c914687fa275940844eb14859d5350, type: 2}
+  obstacleData: {fileID: 0}

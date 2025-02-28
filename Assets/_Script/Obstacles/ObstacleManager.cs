@@ -25,14 +25,11 @@ public class ObstacleManager : MonoBehaviour
 
     [Space(20)]
     //public List<ObstaclePool> obstaclePools;
-    [Foldout, SerializeField] ObstacleSO data;
-
-
+    
     [Space(20)]
     [SerializeField] float spawnZpos = 60f;
-    [SerializeField, AsRange(0, 100)] Vector2 spawnInterval;
-
-
+    [SerializeField, ReadOnly] Vector2 spawnInterval;
+    [SerializeField, ReadOnly] ObstacleSO data;
     private TrackManager trackMgr;
     private RandomGenerator randomGenerator = new RandomGenerator();
 
@@ -40,6 +37,7 @@ public class ObstacleManager : MonoBehaviour
     // Coroutine 방식 : Function, Method, Subroutine
     IEnumerator Start()
     {
+        
         trackMgr = FindFirstObjectByType<TrackManager>();
         if (trackMgr == null)
         {
@@ -47,9 +45,10 @@ public class ObstacleManager : MonoBehaviour
             yield break; // return 과 동일 : 함수 완전 탈출
         }
 
+        yield return new WaitUntil( ()=> data != null );
+        
         // Obstacle Pools 에 있는 모든 값을 랜덤생성기에 등록.
-        foreach( var pool in data.pools )
-            randomGenerator.AddItem(pool);
+        
 
 
         //yield return new WaitForEndOfFrame();  // 지연 : 1프레임만 지연
@@ -63,6 +62,9 @@ public class ObstacleManager : MonoBehaviour
     // 장애물 생성 ( lane = 0,1,2 )
     public void SpawnObstacle()
     {
+        if (data == null)
+            return;
+        
         (int lane, Obstacle prefab) = RandomLanePrefab();
         
         // Z 위치
@@ -121,7 +123,25 @@ public class ObstacleManager : MonoBehaviour
 
     public void SetPhase(PhaseSO phase, float duration = 1f)
     {
+        if (phase.obstacleData == null)
+            return;
+        
+        data = phase.obstacleData;
+
+        // 랜덤 초기화
+        randomGenerator.Clear();
+
+        // ObstaclePool에 있는 
+        foreach( var pool in data.pools )
+            randomGenerator.AddItem(pool);
+        
         // 장애물 interval 적용
-        DOVirtual.Vector2(spawnInterval, phase.obstacleData.interval, duration, i => spawnInterval = i ).SetEase(Ease.InOutSine);
+        DOVirtual.Vector2(spawnInterval, data.interval, duration, i => spawnInterval = i ).SetEase(Ease.InOutSine);
+    }
+
+    public void ClearObstacles()
+    {
+        randomGenerator.Clear();
+        data = null;
     }
 }

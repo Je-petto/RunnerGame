@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e7095a521dcaee47b9abe95f6577b8c, type: 3}
-  m_Name: Obstacles1
+  m_Name: Obstacles1Test
   m_EditorClassIdentifier: 
-  pools: []
-  interval: {x: 15, y: 20}
+  pools:
+  - name: Empty
+    weight: 1
+    obstacleList: []
+  interval: {x: 5, y: 10}
