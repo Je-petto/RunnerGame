@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f5086475785324689a025e2358aef4, type: 3}
   m_Name: Phase5_Finish
   m_EditorClassIdentifier: 
-  Name: Clear
+  displayName: CLEAR!
   Icon: {fileID: 21300000, guid: 5509a28a4ddc6497f85e78718608ddd4, type: 3}
-  Mileage: 100
-  scrollSpeed: 0
+  mileage: 300
+  scrollSpeed: 12
   obstacleInterval: {x: 15, y: 20}
   obstacleData: {fileID: 0}

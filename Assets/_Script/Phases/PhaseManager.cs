@@ -48,7 +48,7 @@ public class PhaseManager : MonoBehaviour
         while( true )
         {
             PhaseSO phase = phaseList[i];
-            if (GameManager.mileage >= phase.Mileage)
+            if (GameManager.mileage >= phase.mileage)
             {
                 SetPhase(phase);
                 i++;
@@ -68,7 +68,7 @@ public class PhaseManager : MonoBehaviour
     {
         PhaseSO phaseEnd = phaseList.LastOrDefault();       
 
-        GameManager.mileageFinish = phaseEnd.Mileage;
+        GameManager.mileageFinish = phaseEnd.mileage;
     }
 
 

@@ -8,9 +8,9 @@ using CustomInspector;
 public class PhaseSO : ScriptableObject
 {
     
-    public string Name;
+    public string displayName;
     [Preview(Size.small)] public Sprite Icon;
-    public uint Mileage;
+    public uint mileage;
 
     public float scrollSpeed;
 

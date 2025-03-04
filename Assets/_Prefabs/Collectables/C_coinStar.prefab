@@ -633,7 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivot: {fileID: 1171357360862350846}
   feedbackDisappear: {fileID: 1065438575823400733}
-  Add: 1
+  Add: 5
 --- !u!1 &8670771399632360631
 GameObject:
   m_ObjectHideFlags: 0

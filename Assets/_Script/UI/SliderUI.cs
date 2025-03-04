@@ -34,9 +34,6 @@ public class SliderUI : MonoBehaviour
     float elapsed = 0f;
     void Update()
     {
-        return;
-
-
         SetPosition(handleIcon, slider.normalizedValue);
 
         elapsed += Time.deltaTime;

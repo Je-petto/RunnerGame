@@ -46,7 +46,7 @@ public class IngameUI : MonoBehaviour
 
     public void SetPhase(PhaseSO phase)
     {
-        ShowInfo(phase.Name);
+        ShowInfo(phase.displayName);
     }
 
     public void ShowInfo(string info, float duration = 1f)
