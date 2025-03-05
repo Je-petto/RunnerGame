@@ -20,19 +20,22 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CurvedMaterial_Collectables
-  m_Shader: {fileID: -6465566751694194690, guid: d23123547b75a51479936f9058173b21, type: 3}
+  m_Name: CurvedMaterial_Invincible
+  m_Shader: {fileID: -6465566751694194690, guid: 345680b21291e884c94adcdbee9681ae, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -66,7 +69,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c4cbaeb0a68a845428e94d7380adc041, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -109,16 +112,18 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Fresnel: 2
+    - _FresnelPower: 0.22
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -135,18 +140,20 @@ Material:
     - _Smoothness: 0.19
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _SrcBlendAlpha: 1
-    - _Surface: 0
+    - _Surface: 1
     - _Wave: 3
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CurveAmount: {r: -0.41116554, g: -0.057107612, b: 0, a: 0}
-    - _EmissionColor: {r: 1.5137194, g: 0.6172642, b: 0, a: 1}
-    - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveAmount: {r: -0.4969194, g: -0.06929672, b: 0, a: 0}
+    - _EmissionColor: {r: 12.125731, g: 12.125731, b: 12.125731, a: 1}
+    - _FresnelColor: {r: 3.732132, g: 0, b: 0, a: 1}
     - _ImpactColor: {r: 0.9056604, g: 0.8753827, b: 0.0982556, a: 0.6313726}
     - _Offset: {r: -1.4793752, g: -0.39920208, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

@@ -17,7 +17,7 @@ MonoBehaviour:
     weight: 1
     obstacleList: []
   - name: ObstacleSingle
-    weight: 1
+    weight: 2
     obstacleList:
     - {fileID: 4649646932239651112, guid: 0c5a5ad78bacddc449f88ce590efa2b2, type: 3}
     - {fileID: -2355736783508646878, guid: 1714c986029de994694853cc6a8943cd, type: 3}

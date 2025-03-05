@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using CustomInspector;
+using DG.Tweening;
 
 
 public class PhaseManager : MonoBehaviour
@@ -22,13 +24,18 @@ public class PhaseManager : MonoBehaviour
 
 
 
-
     IEnumerator Start()
     {
+        GameManager.Reset();
+
         trkMgr = FindFirstObjectByType<TrackManager>();
+        yield return new WaitUntil( ()=> trkMgr != null );
         obsMgr = FindFirstObjectByType<ObstacleManager>();
+        yield return new WaitUntil( ()=> obsMgr != null );
         colMgr = FindFirstObjectByType<CollectableManager>();
+        yield return new WaitUntil( ()=> colMgr != null );
         uiIngame = FindFirstObjectByType<IngameUI>();
+        yield return new WaitUntil( ()=> uiIngame != null );
 
         GetFinishline();
 

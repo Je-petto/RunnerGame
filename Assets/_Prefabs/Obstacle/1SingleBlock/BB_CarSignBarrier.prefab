@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -7596132127248357819}
   m_Layer: 0
   m_Name: BB_CarSignBarrier
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 132619312573837292}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -86,9 +86,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4679788004158242158}
     m_Modifications:
+    - target: {fileID: 1064086002818344, guid: 5a973d89561d2df44af33f7f4716c795, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 1429380784970286, guid: 5a973d89561d2df44af33f7f4716c795, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Billboard_Base_01_Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 1429380784970286, guid: 5a973d89561d2df44af33f7f4716c795, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4604617547825624, guid: 5a973d89561d2df44af33f7f4716c795, type: 3}
       propertyPath: m_LocalPosition.x
