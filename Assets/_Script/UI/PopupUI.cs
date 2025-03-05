@@ -5,48 +5,56 @@ using MoreMountains.Feedbacks;
 using UnityEditor;
 #endif
 
+
 public class PopupUI : MonoBehaviour
 {
     [SerializeField] GameObject quit;
     [SerializeField] MMF_Player quitOpen;
     [SerializeField] MMF_Player quitClose;
 
+
     void Awake()
-    {
+    {        
         DontDestroyOnLoad(gameObject);
-        
+
         quit.SetActive(false);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (quit.activeSelf)
-                quitClose.PlayFeedbacks();
+        {   
+            if(quit.activeSelf)
+                QuitClose();
             else
-                quitOpen.PlayFeedbacks();
-
-        }
+                QuitOpen();         
+        }            
     }
 
-    
+
     public void QuitOk()
-    {
-        //에디터 모드에서 Quit 작동
+    { 
 #if UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
-        
-        // 빌드 후 런타임에서 작동
-#else
-            Application.Quit();
+        // 에디터 모드 Quit 작동
+        EditorApplication.ExitPlaymode();
+#else 
+        // 빌드 후 런타임 에서 작동 ( PC , Mobile , Console , Web ... )
+        Application.Quit();
 #endif
     }
 
-    public void QuitCancel()
+    public void QuitOpen()
+    {
+        quitOpen?.PlayFeedbacks();
+        GameManager.IsPlaying = false;
+        GameManager.IsUiOpened = true;
+    }
+
+    public void QuitClose()
     {
         quitClose?.PlayFeedbacks();
+        GameManager.IsPlaying = true;
+        GameManager.IsUiOpened = false;
     }
 
 }
-

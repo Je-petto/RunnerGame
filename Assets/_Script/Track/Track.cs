@@ -16,7 +16,7 @@ public class Track : MonoBehaviour
 
     void LateUpdate()
     {
-        if (GameManager.IsPlaying == false)
+        if (GameManager.IsPlaying == false || GameManager.IsGameover == true)
             return;
             
         Scroll();
@@ -37,4 +37,3 @@ public class Track : MonoBehaviour
         //Debug.Log( $"{name} : local = {EntryPoint.localPosition} , world = {EntryPoint.position}");
     }
 }
-

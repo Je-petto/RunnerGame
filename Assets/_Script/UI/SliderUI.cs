@@ -34,6 +34,9 @@ public class SliderUI : MonoBehaviour
     float elapsed = 0f;
     void Update()
     {
+        if ( GameManager.IsPlaying == false || GameManager.IsGameover == true )
+            return;
+
         SetPosition(handleIcon, slider.normalizedValue);
 
         elapsed += Time.deltaTime;
@@ -49,7 +52,7 @@ public class SliderUI : MonoBehaviour
     {
         if (s == null)
             return;
-        
+
         Image image = imagepools[_imagenum++ % imagepools.Count];
         if (image == null)
         {

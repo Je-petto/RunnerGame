@@ -32,6 +32,9 @@ public class IngameUI : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.IsPlaying == false || GameManager.IsGameover == true)
+            return;
+
         UpdateMileage();
         UpdateCoins(); 
         UpdateLife();
@@ -40,8 +43,8 @@ public class IngameUI : MonoBehaviour
 
     public void SetMileage(List<PhaseSO> phases)
     {
-        // foreach( var p in phases )
-        //     mileageSliderui.AddIcon(p.Icon, (float)p.Mileage / GameManager.mileageFinish);
+        foreach( var p in phases )
+            mileageSliderui.AddIcon(p.icon, (float)p.mileage / GameManager.mileageFinish);
     }
 
     public void SetPhase(PhaseSO phase)

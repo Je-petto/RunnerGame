@@ -44,6 +44,10 @@ public class TrackManager : MonoBehaviour
 
     void Start()
     {
+        GameManager.IsGameover = true;
+        GameManager.IsPlaying = false;
+
+
         // 메인 카메라 Transform을 미리 받아온다.
         camTransform = Camera.main.transform;
 
@@ -70,7 +74,7 @@ public class TrackManager : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.IsPlaying == false)
+        if (GameManager.IsPlaying == false || GameManager.IsGameover == true)
             return;
 
         RepositionTrack();
@@ -186,17 +190,23 @@ public class TrackManager : MonoBehaviour
 
     private IEnumerator CountdownTrack()
     {
-        yield return new WaitForEndOfFrame();        
+        yield return new WaitForEndOfFrame();  
 
-        // countdown 으로 반복문 처리하기
-        for ( int i=countdown; i>0; i-- )
+        while(true)     
         {
-            uiIngame.ShowInfo($"{i}", 1.5f);
+            yield return new WaitUntil( ()=> GameManager.IsUiOpened == false );
+            
+            uiIngame.ShowInfo($"{countdown--}", 1.5f);
+
+            if (countdown < 0)
+            {
+                GameManager.IsPlaying = true;
+                GameManager.IsGameover = false;                 
+                yield break;
+            }
 
             yield return new WaitForSeconds(1f);
-        }
-        
-        GameManager.IsPlaying = true;
+        }                      
     }
 
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Phase5_Finish
   m_EditorClassIdentifier: 
   displayName: CLEAR!
-  Icon: {fileID: 21300000, guid: 5509a28a4ddc6497f85e78718608ddd4, type: 3}
-  mileage: 300
-  scrollSpeed: 12
-  obstacleInterval: {x: 15, y: 20}
+  icon: {fileID: 21300000, guid: f2faab10d27524461a7795d50716ffcc, type: 3}
+  mileage: 500
+  scrollSpeed: 0
   obstacleData: {fileID: 0}
+  collectableData: {fileID: 0}

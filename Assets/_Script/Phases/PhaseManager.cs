@@ -12,11 +12,12 @@ public class PhaseManager : MonoBehaviour
     [SerializeField] float updateInterval = 1f;
 
 
-    [HorizontalLine("Phase 속성"), HideField] public bool _l1;
+    [HorizontalLine("Phase Data 속성"), HideField] public bool _l1;
     [SerializeField, Foldout] List<PhaseSO> phaseList = new List<PhaseSO>();
     
     private TrackManager trkMgr;
     private ObstacleManager obsMgr;
+    private CollectableManager colMgr;
     private IngameUI uiIngame;
 
 
@@ -26,13 +27,14 @@ public class PhaseManager : MonoBehaviour
     {
         trkMgr = FindFirstObjectByType<TrackManager>();
         obsMgr = FindFirstObjectByType<ObstacleManager>();
+        colMgr = FindFirstObjectByType<CollectableManager>();
         uiIngame = FindFirstObjectByType<IngameUI>();
 
         GetFinishline();
 
         uiIngame.SetMileage(phaseList);
         
-        yield return new WaitUntil( ()=> GameManager.IsPlaying );
+        yield return new WaitUntil( ()=> GameManager.IsGameover == false && GameManager.IsPlaying == true);
         StartCoroutine(IntervalUpdate());
     }
 
@@ -66,8 +68,7 @@ public class PhaseManager : MonoBehaviour
 
     void GetFinishline()
     {
-        PhaseSO phaseEnd = phaseList.LastOrDefault();       
-
+        PhaseSO phaseEnd = phaseList.LastOrDefault();
         GameManager.mileageFinish = phaseEnd.mileage;
     }
 
@@ -77,6 +78,7 @@ public class PhaseManager : MonoBehaviour
         uiIngame?.SetPhase(phase);
         trkMgr?.SetPhase(phase);
         obsMgr?.SetPhase(phase);
+        colMgr?.SetPhase(phase);
     }
 
     void GameClear(PhaseSO phase)

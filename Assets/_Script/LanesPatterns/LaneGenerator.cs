@@ -27,7 +27,7 @@ public class LaneGenerator
         lanePatterns.Add( new LaneWave() );
         lanePatterns.Add( new LaneZigzag() );
 
-        foreach( var p in pools )
+        foreach( LanepatternPool p in pools )
             randomGenerator.AddItem(p);
 
         SwitchPattern();
@@ -48,9 +48,9 @@ public class LaneGenerator
     
     public void SwitchPattern()
     {
-        string patternName = randomGenerator.GetRandom().GetItem() as string;
-
-        Lane lanepattern = lanePatterns.Find( f => f.Name == patternName);                
+        LaneType laneType = (LaneType)(randomGenerator.GetRandom().GetItem());
+        
+        Lane lanepattern = lanePatterns.Find( f => f.laneType == laneType);                
         currentPattern = lanepattern;
         currentPattern?.Initialize(laneCount);
 

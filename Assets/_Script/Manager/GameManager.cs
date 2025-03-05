@@ -7,6 +7,7 @@ public static class GameManager
     // 전역 변수
     public static bool IsPlaying = false;
     public static bool IsGameover = false;
+    public static bool IsUiOpened = false;
 
     
     public static double mileage; //누적 거리
@@ -17,4 +18,5 @@ public static class GameManager
 
     public static int life = 3;
 }
+
 
