@@ -15,6 +15,6 @@ MonoBehaviour:
   displayName: GO!
   icon: {fileID: 21300000, guid: 2823f9ce8b7384cd7b7b368c7e10e0a4, type: 3}
   mileage: 0
-  scrollSpeed: 13
+  scrollSpeed: 12
   obstacleData: {fileID: 0}
   collectableData: {fileID: 11400000, guid: fd470fdf0970e3a46ac9c36aa3dc3810, type: 2}

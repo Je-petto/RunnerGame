@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7095a521dcaee47b9abe95f6577b8c, type: 3}
+  m_Name: Obstacles2ndPhase
+  m_EditorClassIdentifier: 
+  pools:
+  - name: Empty
+    weight: 2
+    obstacleList: []
+  - name: ObstacleSingle
+    weight: 1
+    obstacleList:
+    - {fileID: 7812041317574256784, guid: a6da120715f719c488f886a4a1e38957, type: 3}
+    - {fileID: 4649646932239651112, guid: 0c5a5ad78bacddc449f88ce590efa2b2, type: 3}
+    - {fileID: 4649646932239651112, guid: 3eac594d75d4da943a506c47017ea7bd, type: 3}
+    - {fileID: -2355736783508646878, guid: 1714c986029de994694853cc6a8943cd, type: 3}
+    - {fileID: -7596132127248357819, guid: ece5f8b60a7109c4ea183fe53112b0ff, type: 3}
+  interval: {x: 8, y: 13}

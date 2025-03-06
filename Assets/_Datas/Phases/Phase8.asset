@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64f5086475785324689a025e2358aef4, type: 3}
-  m_Name: Phase3
+  m_Name: Phase8
   m_EditorClassIdentifier: 
-  displayName: PHASE3
+  displayName: LAST SPRINT
   icon: {fileID: 0}
-  mileage: 700
-  scrollSpeed: 15
-  obstacleData: {fileID: 11400000, guid: 3e21dd5ddc85c02449e4bf06a4c47050, type: 2}
-  collectableData: {fileID: 11400000, guid: d2885476dab834940bbfa6574f0102da, type: 2}
+  mileage: 3600
+  scrollSpeed: 23
+  obstacleData: {fileID: 11400000, guid: d4777f0ad2f3c5640acc725239497d9f, type: 2}
+  collectableData: {fileID: 11400000, guid: 93e724604fbc14f47937881d918c4503, type: 2}

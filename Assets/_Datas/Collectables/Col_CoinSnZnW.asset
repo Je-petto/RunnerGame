@@ -24,7 +24,7 @@ MonoBehaviour:
     weight: 2
     patternType: 1
   - name: zigzag
-    weight: 1
+    weight: 2
     patternType: 3
   - name: Wave
     weight: 1

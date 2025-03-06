@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e7095a521dcaee47b9abe95f6577b8c, type: 3}
-  m_Name: Obstacles1Test
+  m_Script: {fileID: 11500000, guid: 64f5086475785324689a025e2358aef4, type: 3}
+  m_Name: Phase9_Finish
   m_EditorClassIdentifier: 
-  pools:
-  - name: Empty
-    weight: 1
-    obstacleList: []
-  interval: {x: 5, y: 10}
+  displayName: CLEAR!
+  icon: {fileID: 21300000, guid: f2faab10d27524461a7795d50716ffcc, type: 3}
+  mileage: 4000
+  scrollSpeed: 0
+  obstacleData: {fileID: 0}
+  collectableData: {fileID: 0}

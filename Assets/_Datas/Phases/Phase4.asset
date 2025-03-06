@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: PHASE4
   icon: {fileID: 0}
-  mileage: 600
-  scrollSpeed: 22
+  mileage: 1300
+  scrollSpeed: 17
   obstacleData: {fileID: 11400000, guid: f08609732b5597246aab881ce7e76b5f, type: 2}
-  collectableData: {fileID: 11400000, guid: 23e2ff3a80ade6c43877504b93663797, type: 2}
+  collectableData: {fileID: 11400000, guid: d2885476dab834940bbfa6574f0102da, type: 2}

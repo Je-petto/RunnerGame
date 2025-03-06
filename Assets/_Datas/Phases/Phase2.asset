@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Phase2
   m_EditorClassIdentifier: 
   displayName: PHASE2
-  icon: {fileID: 21300000, guid: 41e3d6552ed164af7b075fb0c81739f9, type: 3}
-  mileage: 150
-  scrollSpeed: 15
+  icon: {fileID: 0}
+  mileage: 200
+  scrollSpeed: 14
   obstacleData: {fileID: 11400000, guid: 65c914687fa275940844eb14859d5350, type: 2}
-  collectableData: {fileID: 11400000, guid: d2885476dab834940bbfa6574f0102da, type: 2}
+  collectableData: {fileID: 11400000, guid: d9bcd6c7b134baa41a02cc9bd6af5328, type: 2}

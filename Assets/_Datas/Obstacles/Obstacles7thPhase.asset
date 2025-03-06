@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e7095a521dcaee47b9abe95f6577b8c, type: 3}
-  m_Name: ObstaclesDouble
+  m_Name: Obstacles7thPhase
   m_EditorClassIdentifier: 
   pools:
   - name: Empty
@@ -29,4 +29,8 @@ MonoBehaviour:
     obstacleList:
     - {fileID: -2267207644359287469, guid: 91ab3281ed88760449b0c5bed881e9c2, type: 3}
     - {fileID: 3475690085336661821, guid: 54708864a35746b42a4f6fc13157296d, type: 3}
+  - name: Triple
+    weight: 3
+    obstacleList:
+    - {fileID: 1362167535418469627, guid: 86c2d4935a7d64f47ae3cd6d5bba89ca, type: 3}
   interval: {x: 12, y: 20}
