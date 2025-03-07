@@ -17,7 +17,7 @@ MonoBehaviour:
     weight: 1
     obstacleList: []
   - name: Single
-    weight: 2
+    weight: 3
     obstacleList:
     - {fileID: -7596132127248357819, guid: ece5f8b60a7109c4ea183fe53112b0ff, type: 3}
     - {fileID: 1360006401366108012, guid: 088710f0c64eb2b4680403f658c2b0b8, type: 3}
@@ -25,9 +25,4 @@ MonoBehaviour:
     - {fileID: 4649646932239651112, guid: 0c5a5ad78bacddc449f88ce590efa2b2, type: 3}
     - {fileID: 7812041317574256784, guid: 7f2ccbdb621d92049bc799b4678c4360, type: 3}
     - {fileID: 4649646932239651112, guid: 748c2c11f4c443b46894bd2fe49c2e73, type: 3}
-  - name: Double
-    weight: 1
-    obstacleList:
-    - {fileID: -2267207644359287469, guid: 91ab3281ed88760449b0c5bed881e9c2, type: 3}
-    - {fileID: 3475690085336661821, guid: 54708864a35746b42a4f6fc13157296d, type: 3}
   interval: {x: 12, y: 20}

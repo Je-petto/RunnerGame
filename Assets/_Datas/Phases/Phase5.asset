@@ -15,6 +15,6 @@ MonoBehaviour:
   displayName: PHASE5
   icon: {fileID: 0}
   mileage: 1900
-  scrollSpeed: 19
+  scrollSpeed: 20
   obstacleData: {fileID: 11400000, guid: 540e42045e6ea5d4282ca7cab93527cf, type: 2}
   collectableData: {fileID: 11400000, guid: d2885476dab834940bbfa6574f0102da, type: 2}

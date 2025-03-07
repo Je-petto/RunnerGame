@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pools:
   - name: Empty
-    weight: 2
+    weight: 1
     obstacleList: []
   - name: ObstacleSingle
-    weight: 1
+    weight: 2
     obstacleList:
     - {fileID: 7812041317574256784, guid: a6da120715f719c488f886a4a1e38957, type: 3}
     - {fileID: 4649646932239651112, guid: 0c5a5ad78bacddc449f88ce590efa2b2, type: 3}

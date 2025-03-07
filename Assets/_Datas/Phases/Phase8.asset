@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: LAST SPRINT
   icon: {fileID: 0}
-  mileage: 3600
+  mileage: 3800
   scrollSpeed: 23
   obstacleData: {fileID: 11400000, guid: d4777f0ad2f3c5640acc725239497d9f, type: 2}
   collectableData: {fileID: 11400000, guid: 93e724604fbc14f47937881d918c4503, type: 2}

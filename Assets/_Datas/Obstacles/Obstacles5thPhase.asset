@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pools:
   - name: Empty
-    weight: 0
+    weight: 1
     obstacleList: []
   - name: Single
     weight: 1
@@ -34,4 +34,4 @@ MonoBehaviour:
     weight: 2
     obstacleList:
     - {fileID: 1362167535418469627, guid: 86c2d4935a7d64f47ae3cd6d5bba89ca, type: 3}
-  interval: {x: 12, y: 20}
+  interval: {x: 15, y: 20}
